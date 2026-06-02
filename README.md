@@ -1,47 +1,43 @@
-# Svelte + TS + Vite
+# TariqGPT
+This is a step by step guide that will allow you to:
+run tariq on localhost
+talk to 2 of tariqgpts models
+save chats
+and most importantly goof off with the **from scratch** ai, tariq that was created with a labor of love from me and a friend (@poopypants)
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+# Prerequisites:
+1. npm package manager or other package manager that node supports
+2. python 3.12
+3. a browser of your choice that can access local host
+4. unzip -> /src/interpreter/models/models.zip
+# Steps for Windows
+1. Go to root directory and run `npm install`
+2. If any errors are present, run `npm audit fix`
+3. Make sure the dev server works by running `npm run dev` <- this should run the local host, 
+4. Make sure the port is on **5173** <- if it isn't this port, then it WILL NOT allow api to run go to step 10. 
+5. You can choose to close the dev server once you have it working
+6. Now go to src/interpreter, and run `py -3.12 -m pip install -r requirements.txt`.
+7. Run `py -3.12 server.py`, it should run a localhost which will serve as an api for the vite server. output will look like this:
+   ```bash
+	INFO:     Started server process [25044]
+	INFO:     Waiting for application startup.
+	INFO:     Application startup complete.
+	INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+   ```
+   When requests come through, you will see status and the request made.
+8. Make sure to test run run `py -3.12 model_interpreter.py 50 0.7 Tariq0.3 "Hello Tariq"`, then terminate the process with `CTRL+C`, you just need it to run without showing errors.
+   Example output:
+   ```bash
+   Using model: Tariq0.6 (E:\TairiqGPT testing\TariqGPT\src\interpreter\models\Tariq0.6.pt)
+	Using device: cuda
+	[interpreter] Checkpoint keys: ['model_state_dict', 'optimizer_state_dict', 'config', 'vocab', 'epoch', 'step', 'loss', 'sft', 'sft_version', 'tokenizer_c2i']
+	[interpreter] Config ('config'): {'name': 'Tariq0.6', 'embed_dim': 320, 'n_heads': 10, 'n_layers': 18, 'block_size': 256, 'dropout': 0.0}
+	[interpreter] Missing keys (18): ['blocks.0.attn.mask', 'blocks.1.attn.mask', 'blocks.2.attn.mask', 'blocks.3.attn.mask', 'blocks.4.attn.mask', 'blocks.5.attn.mask', 'blocks.6.attn.mask', 'blocks.7.attn.mask', 'blocks.8.attn.mask', 'blocks.9.attn.mask']
+	[interpreter] OK — Tariq0.6  params=23.31M  vocab=3319
 
-## Recommended IDE Setup
-
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
-
-## Need an official Svelte framework?
-
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
-
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+   ```
+   do not expect an output, since the output for tariq gets put in the buffer.
+9. Once you've confirmed everything is working, and that your vite server is on **1573** and your server.py is running on port **8000**, you should see the following:
+   ![Website Image](Website.png)
+   You may send and save messages as well as run them, and it will all run locally! have fun testing with TariqGPT!
+10. Go to root, and run `npx vite --port 5173`
