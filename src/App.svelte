@@ -23,7 +23,7 @@
 
     async function loadModels() {
         try {
-            const res = await fetch("http://localhost:8000/models);
+            const res = await fetch("http://localhost:8000/models");
             const data = await res.json();
             models = data.models;
         } catch (err) {
