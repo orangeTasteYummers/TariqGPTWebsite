@@ -25,4 +25,4 @@ dist-ssr
 
 
 #pt files
-*.pt
+#*.pt

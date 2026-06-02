@@ -26,7 +26,7 @@ and most importantly goof off with the **from scratch** ai, tariq that was creat
    ```
    When requests come through, you will see status and the request made.
 8. Make sure to test run run `py -3.12 model_interpreter.py 50 0.7 Tariq0.3 "Hello Tariq"`, then terminate the process with `CTRL+C`, you just need it to run without showing errors.
-   Example output:
+   Example output for 0.6:
    ```bash
    Using model: Tariq0.6 (E:\TairiqGPT testing\TariqGPT\src\interpreter\models\Tariq0.6.pt)
 	Using device: cuda
