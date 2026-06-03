@@ -23,7 +23,7 @@
     <p>This page will include much information on tariq, describing his early days, such as his training and funny events (images are tough to find as of now and will show up later!)</p>
 
     <h2>Tariq's Creation</h2>
-
+    <p>Theres no info here yet! Check back later.</p>
     <h2>Model Info</h2>
     <h3>Tariq Prime</h3>
     <p>Tariq Prime, or Tariq0.1 was the very first released iteration of tariq, he had not a lot going for himself but sure loved the war of 1812</p>
