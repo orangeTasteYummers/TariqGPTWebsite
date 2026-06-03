@@ -9,7 +9,7 @@ and most importantly goof off with the **from scratch** AI TariqGPT who was crea
 1. npm package manager or other package manager that node supports
 2. python 3.12
 3. a browser of your choice that can access local host
-4. unzip -> /src/interpreter/models/models.zip
+
 # Steps for Windows
 1. Go to root directory and run `npm install`
 2. If any errors are present, run `npm audit fix`
