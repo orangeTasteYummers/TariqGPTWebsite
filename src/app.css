@@ -1,11 +1,20 @@
-    :global(html, body) {
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700&display=swap');
+
+
+html, body {
     margin: 0;
     padding: 0;
     overflow-y: hidden;
 }
 
 * {
-    font-family: "Comic Sans MS", sans-serif;
+    font-family: 'Nunito', cursive;
+}
+
+h1, h2, h3 {
+    font-family: 'Bangers';
+    letter-spacing: 2px;
 }
 
 /* ── Color tokens ── */
@@ -30,6 +39,7 @@
     --accent: #0b84fe;
     --purple: #5134B7;
     --purple-anim: #a73ad9;
+    --a-tag: #2563aa;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -54,13 +64,28 @@
         --accent: #0a84ff;
         --purple: #5134B7;
         --purple-anim: #da8fff;
+        --a-tag: #33cfeb;
     }
+}
+
+a {
+    color: var(--a-tag);
 }
 
 .container {
     display: flex;
     height: 100vh;
     background: var(--bg);
+    color: var(--text);
+}
+
+.info-page {
+    flex-direction: column;
+    text-align: center;
+    padding-inline: 35vw;
+    p {
+        margin-block: 3px;
+    }
 }
 
 .sidebar {
@@ -379,4 +404,8 @@ button:disabled {
     font-size: 8px;
     display: inline;
     padding-bottom: 25px;
+}
+
+.info a {
+
 }

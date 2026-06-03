@@ -242,10 +242,11 @@
 <div class="container">
     <div class="sidebar">
         <h3>Models</h3>
+    <a href="#/info">Curious about Tariq? click here!</a>
 	<div class="info">
 		<p>Any response from Tariq is ai generated and should be taken with a grain of salt</p>
 		<p>Always double check your information</p>
-        <a href="#/info" style="color: cyan;">Curious about Tariq? click here!</a>
+        
 	</div>
 	    {#each models as m}
             <button
@@ -369,11 +370,3 @@
     </div>
 </div>
 
-<style>
-
-    :global(html, body) {
-    margin: 0;
-    padding: 0;
-    overflow-y: hidden;
-}
-</style>
