@@ -16,9 +16,10 @@ daily_log: dict[str, list] = defaultdict(list)
 
 app = FastAPI()
 
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "https://tariqgpt.duckdns.org"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
