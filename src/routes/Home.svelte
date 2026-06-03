@@ -179,7 +179,7 @@
             "vol-confirm",
         ) as HTMLButtonElement;
 
-        let pending = 50,
+        let pending = 25,
             moves = 0;
         let inverted = false,
             slowMode = false,
