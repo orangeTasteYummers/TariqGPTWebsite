@@ -314,8 +314,8 @@
                 on:keydown={(e) => e.key === "Enter" && !disabled && handleSend()}
             />
             <button on:click={handleSend} {disabled}><i class="ti ti-send"></i></button>
-            <button on:click={clearChat}>Clear</button>
-            <button on:click={saveChat}>Save</button>
+            <button on:click={clearChat}><i class="ti ti-eraser"></i></button>
+            <button on:click={saveChat}><i class="ti ti-download"></i></button>
         </div>
     </div>
 </div>
