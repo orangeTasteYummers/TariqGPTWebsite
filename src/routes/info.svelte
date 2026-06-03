@@ -4,16 +4,16 @@
 </script>
 
 <div class="info-page container"> 
-    <h1 style="display:inline;">About Tariq &nbsp; <button on:click={function() {location.href = '#/'}}>Back</button></h1> 
+    <h1 style="display:inline;">About Tariq &nbsp;</h1> 
     <p>This page will include much information on tariq, describing his early days, such as his training and funny events (images are tough to find as of now and will show up later!)</p>
 
     <h2>Tariq Prime</h2>
     <p>Tariq Prime, or Tariq0.1 was the very first released iteration of tariq, he had not a lot going for himself but sure loved the war of 1812</p>
 
     <h2>Tariq 0.4 or "Red Tariq"</h2>
-    <p>At this point Tariq has scrapped wikipedia, and came accross not very positive information</p>
-    <p>Red Tariq was very <i>very</i> unprofessional, and claimed to be a not so great person from the past (to be clear, he was only scraping through wikipedia, no other version is as hateful as him and we had no intetion of this happening), but in particular <b>HATES</b> Johnrei, seriously, just type johnrei or something about an annoying person and he will never end rambling about how terrible the guy is</p>
-    <small>I almost feel bad for the guy.</small>
+    <p>At this point Tariq has scraped wikipedia, and came accross not very positive information (at least we think so).</p>
+    <p>Red Tariq was very <i>very</i> unprofessional compared to the other Tariqs, and claimed to be a not so great person (to be clear, he was only scraping through wikipedia, no other version is as hateful as him and we had no intetion of this happening), but in particular <b>HATES</b> a person named Johnrei, seriously, just type "johnrei" or something about an annoying person and he will never end rambling about how terrible the guy is.</p>
+    <small>I almost feel bad for 0.4 sometimes.</small>
 
     <h2>Tariq 0.6 or "Fat tariq"</h2>
     <p>Tariq 0.6 by this point has had access to discord for a long time, he is the longest running version of Tariq, the second being 0.5.5. He linked us to an... odd twitter page, which I will not share.</p>
@@ -22,8 +22,8 @@
     <h2 style="color: #FEA6B1;">Tsundere Tariq</h2>
     
     <p>Tsun Tariq (Tsundere Tariq) is our very first joke model, though a month late of april fools, he was created, and we plan to keep updating him.</p>
-    <p>Tsun Tariq was trained due to a recent meme of AI's acting like <a href="https://en.wikipedia.org/wiki/Tsundere">Tsunderes</a> </p>
-
+    <p>Tsun Tariq was trained due to a recent meme of AI's acting like <a href="https://en.wikipedia.org/wiki/Tsundere">Tsunderes.</a> </p>
+<button style="margin-inline: auto;" on:click={function() {location.href = '#/'}}>Back</button>
 </div>
 
 <style>

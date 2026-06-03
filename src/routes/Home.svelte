@@ -67,7 +67,7 @@
         status = "TariqGPT is typing...";
         if (container) container.scrollTop = container.scrollHeight;  
 	try {
-            const res = await fetch(`${API_URL}/models`, {
+            const res = await fetch(`${API_URL}/generate`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -108,7 +108,7 @@
         messages = messages.filter((_, j) => j !== index);
         status = "TariqGPT is regenerating...";
         try {
-            const res = await fetch(`${API_URL}/models`, {
+            const res = await fetch(`${API_URL}/generate`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

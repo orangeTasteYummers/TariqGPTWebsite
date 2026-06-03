@@ -36,7 +36,7 @@ h1, h2, h3 {
     --model-btn-text: #000;
     --model-btn-border: #3a3a3c;
     --status-color: green;
-    --accent: #0b84fe;
+    --accent: #464646;
     --purple: #5134B7;
     --purple-anim: #a73ad9;
     --a-tag: #2563aa;
@@ -61,7 +61,7 @@ h1, h2, h3 {
         --model-btn-text: #ffffff;
         --model-btn-border: #636366;
         --status-color: #30d158;
-        --accent: #0a84ff;
+        --accent: #2d2d2d;
         --purple: #5134B7;
         --purple-anim: #da8fff;
         --a-tag: #33cfeb;
@@ -257,7 +257,8 @@ input::placeholder {
 button {
     background: var(--accent);
     color: #fff;
-    border: none;
+    border-color: var(--accent);
+    border: 2px solid;
     border-radius: 25px;
     width: 64px;
     height: 24px;
@@ -353,9 +354,6 @@ button {
     100% { transform: scale(1.2, 0.8); }
 }
 
-button:hover {
-    animation: pulse 3s infinite;
-}
 
 button:disabled {
     background: var(--btn-disabled-bg);
@@ -401,11 +399,11 @@ button:disabled {
 
 .info {
     color: red;
-    font-size: 8px;
+    font-size: 10px;
     display: inline;
     padding-bottom: 25px;
 }
 
 .info a {
-
+    font-size: 10px;
 }
