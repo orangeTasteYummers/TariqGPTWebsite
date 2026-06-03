@@ -1,11 +1,10 @@
 
 
 <script lang="ts">
-
-
     // set up stuff
     import { onMount } from "svelte";
     import type { Message } from "../lib/types";
+    import { API_URL } from "../lib/config";
     import tariqPfp from "../assets/tariqgpt-logo.svg";
     let input = "";
     let disabled = false;
@@ -14,7 +13,7 @@
     
     let temperature = 0.8;
     let maxTokens = 150;
-    let volume = 50;
+    let volume = 25;
 
     let model = "Tariq0.6";
     let models: string[] = [];
@@ -29,7 +28,7 @@
 
     async function loadModels() {
         try {
-            const res = await fetch("http://localhost:8000/models");
+            const res = await fetch(`${API_URL}/models`);
             const data = await res.json();
             models = data.models;
         } catch (err) {
@@ -68,7 +67,7 @@
         status = "TariqGPT is typing...";
         if (container) container.scrollTop = container.scrollHeight;  
 	try {
-            const res = await fetch("http://localhost:8000/generate", {
+            const res = await fetch(`${API_URL}/models`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -109,7 +108,7 @@
         messages = messages.filter((_, j) => j !== index);
         status = "TariqGPT is regenerating...";
         try {
-            const res = await fetch("http://localhost:8000/generate", {
+            const res = await fetch(`${API_URL}/models`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
