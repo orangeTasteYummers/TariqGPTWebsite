@@ -37,6 +37,8 @@ h1, h2, h3 {
     --model-btn-border: #3a3a3c;
     --status-color: green;
     --accent: #464646;
+    --secondary-accent: #8c8c8c;
+
     --purple: #5134B7;
     --purple-anim: #a73ad9;
     --a-tag: #2563aa;
@@ -62,6 +64,7 @@ h1, h2, h3 {
         --model-btn-border: #636366;
         --status-color: #30d158;
         --accent: #2d2d2d;
+        --secondary-accent: #5c5c5c;
         --purple: #5134B7;
         --purple-anim: #da8fff;
         --a-tag: #33cfeb;
@@ -250,6 +253,11 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+button:hover {
+    background: var(--secondary-accent);
+    
 }
 
 .action-btn {
