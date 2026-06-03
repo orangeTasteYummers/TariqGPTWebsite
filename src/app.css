@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700&display=swap');
 
 
@@ -186,7 +186,6 @@ a {
 }
 
 .volume-control {
-    display: flex;
     align-items: center;
     gap: 8px;
     padding: 4px 12px 6px;
@@ -194,39 +193,23 @@ a {
     position: relative;
 }
 
-#vol-slider-wrapper {
-    position: relative;
-    width: 120px;
-    height: 24px;
-    flex-shrink: 0;
-}
 
 #vol-slider {
-    position: absolute;
-    width: 120px;
-    top: 4px;
-    left: 0;
+    display: inline;
+    width: 12%;
+    flex:1;
     accent-color: var(--accent);
     cursor: pointer;
 }
 
 #vol-num {
+    overflow: visible;
+    display:inline;
     font-size: 12px;
     font-family: monospace;
     color: var(--text);
-    min-width: 26px;
     font-weight: 500;
-}
-
-#vol-status {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-style: italic;
-    flex: 1;
-}
-
-#vol-confirm {
-    display: none;
+    width:120px;
 }
 
 .input {
@@ -406,4 +389,10 @@ button:disabled {
 
 .info a {
     font-size: 10px;
+}
+
+
+.fun-fact {
+    color: var(--status-color);
+
 }

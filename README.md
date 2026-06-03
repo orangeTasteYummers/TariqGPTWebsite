@@ -3,7 +3,7 @@ This is a step by step guide that will allow you to:
 run tariq on localhost
 talk to all publicly of tariqgpts models (currently all are public except the tariq's that spit garbled messes)
 save chats
-and most importantly goof off with the **from scratch** AI TariqGPT who was created with a labor of love from me and a friend (@poopypants)
+and most importantly goof off with the **from scratch** AI TariqGPT who was created with a labor of love from me and a friend (@poopypants on github)
 
 # Prerequisites:
 1. npm package manager or other package manager that node supports
@@ -37,6 +37,7 @@ and most importantly goof off with the **from scratch** AI TariqGPT who was crea
 
    ```
    do not expect an output, since the output for tariq gets put in the buffer.
+   
 9. Once you've confirmed everything is working, and that your vite server is on **1573** and your server.py is running on port **8000**, you should see the following:
    ![Website Image](Website.png)
    You may send and save messages as well as run them, and it will all run locally! have fun testing with TariqGPT!

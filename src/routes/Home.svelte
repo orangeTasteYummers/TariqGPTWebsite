@@ -1,7 +1,7 @@
 
 
 <script lang="ts">
-    // set up stuff
+    // svolumtuff
     import { onMount } from "svelte";
     import type { Message } from "../lib/types";
     import { API_URL } from "../lib/config";
@@ -136,23 +136,33 @@
         status = "Waiting for prompt";
         disabled = false;
     }
-
+    async function clearChat() {
+        if (confirm("This will delete ALL chats on the current page, are you sure?")) {
+            messages = [];
+        }
+    }
     function loadSavedChat() {
 
         const fileInput = document.createElement("input");
         fileInput.type = "file";
         fileInput.accept = ".json";
+
         fileInput.onchange = async (e) => {
             const file = (e.target as HTMLInputElement).files?.[0];
+
             if (!file) return;
+
             const text = await file.text();
             try {
                 const loadedMessages: Message[] = JSON.parse(text);
                 messages = loadedMessages;
+
             } catch (err) {
                 alert("Failed to load chat: Invalid file format");
+
             }
         };
+
         fileInput.click();
     }
 
@@ -173,68 +183,18 @@
             "vol-slider",
         ) as HTMLInputElement;
         const volNum = document.getElementById("vol-num")!;
-        const volStatus = document.getElementById("vol-status")!;
         const volIcon = document.getElementById("vol-icon")!;
-        const confirmBtn = document.getElementById(
-            "vol-confirm",
-        ) as HTMLButtonElement;
-
-        let pending = 25,
-            moves = 0;
-        let inverted = false,
-            slowMode = false,
-            lastMove = 0;
 
         function icons(v: number) {
             return v === 0 ? "🔇" : v < 30 ? "🔈" : v < 70 ? "🔉" : "🔊";
         }
 
         slider.addEventListener("input", () => {
-            const now = Date.now();
-            if (slowMode && now - lastMove < 300) {
-                slider.value = String(pending);
-                volStatus.textContent = "too fast. slow down.";
-                return;
-            }
-            lastMove = now;
+            
             let v = parseInt(slider.value);
-            if (inverted) v = 100 - v;
-            pending = v;
+            
             volIcon.textContent = icons(v);
-            moves++;
 
-            if (moves === 1) {
-                volStatus.textContent = "now confirm it";
-                confirmBtn.style.display = "inline-block";
-            } else if (moves === 4) {
-                slowMode = true;
-                volStatus.textContent = "slow mode on";
-                confirmBtn.style.display = "inline-block";
-            } else if (moves === 6) {
-                inverted = !inverted;
-                volStatus.textContent = inverted
-                    ? "inverted lol"
-                    : "un-inverted";
-                confirmBtn.style.display = "inline-block";
-            } else {
-                volStatus.textContent = "confirm again";
-                confirmBtn.style.display = "inline-block";
-            }
-        });
-
-        let confirmPhase = 0;
-        confirmBtn.addEventListener("click", () => {
-            if (confirmPhase === 0 && moves % 4 === 0) {
-                confirmBtn.textContent = "sure?";
-                confirmPhase = 1;
-                return;
-            }
-            confirmPhase = 0;
-            confirmBtn.textContent = "apply";
-            volume = pending;
-            volNum.textContent = String(volume);
-            volStatus.textContent = "applied. happy?";
-            confirmBtn.style.display = "none";
         });
     });
 </script>
@@ -316,20 +276,10 @@
         <p class="status">{status} &nbsp;  &nbsp; &nbsp; support us <a href="https://cash.app/$orange3717">here!</a></p>
 
         <div class="volume-control" id="vol-app">
+            <input type="range" id="vol-slider" min="0" max="100" step="5"
+                bind:value={volume}
+            />
             <span id="vol-icon">🔉</span>
-            <div id="vol-slider-wrapper">
-                <input
-                    type="range"
-                    id="vol-slider"
-                    min="0"
-                    max="100"
-                    value="50"
-                    step="1"
-                />
-            </div>
-            <span id="vol-num">50</span>
-            <span id="vol-status">try to change me</span>
-            <button id="vol-confirm" class="settings-btn">apply</button>
         </div>
 
         <div class="bot-settings">
@@ -345,7 +295,7 @@
             <input
                 class="settings-input"
                 type="number"
-                placeholder="Max tokens (0-1000)"
+                placeholder="Max tokens (0-300)"
                 min="0"
                 max="300"
                 step="10"
@@ -363,10 +313,9 @@
                 placeholder="Type message to TariqGPT here..."
                 on:keydown={(e) => e.key === "Enter" && !disabled && handleSend()}
             />
-            <button on:click={handleSend} {disabled}>Send</button>
-            <button on:click={() => (messages = [])}>Clear</button>
+            <button on:click={handleSend} {disabled}><i class="ti ti-send"></i></button>
+            <button on:click={clearChat}>Clear</button>
             <button on:click={saveChat}>Save</button>
         </div>
     </div>
 </div>
-
