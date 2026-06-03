@@ -1,9 +1,9 @@
 # TariqGPT
 This is a step by step guide that will allow you to:
 run tariq on localhost
-talk to 2 of tariqgpts models
+talk to all publicly of tariqgpts models (currently all are public except the tariq's that spit garbled messes)
 save chats
-and most importantly goof off with the **from scratch** ai, tariq that was created with a labor of love from me and a friend (@poopypants)
+and most importantly goof off with the **from scratch** AI TariqGPT who was created with a labor of love from me and a friend (@poopypants)
 
 # Prerequisites:
 1. npm package manager or other package manager that node supports
