@@ -35,7 +35,7 @@
 
     <h3>Tariq 0.6 or "Fat tariq"</h3>
     <p>Tariq 0.6 by this point has had access to discord for a long time, he is the longest running version of Tariq, the second being 0.5.5. He linked us to an... odd twitter page, which I will not share.</p>
-    <p>The reason 0.6 has been nicknamed by me fat tariq is because he is an issue as of now. He tripled and size and broke the optimizer for all of his checkpoints, requiring me or @poopypants (github) to have to fix it just him. Such greed.</p>
+    <p>The reason 0.6 has been nicknamed by me fat tariq is because he is an issue as of now. He tripled and size and broke the optimizer for all of his checkpoints, requiring me or @poopypants (github) to have to fix it just for him. Such greed.</p>
 
     <h3 style="color: #FEA6B1;">Tsundere Tariq</h3>
     
