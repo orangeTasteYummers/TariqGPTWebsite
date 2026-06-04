@@ -178,24 +178,6 @@
 
     onMount(async () => {
         await loadModels();
-
-        const slider = document.getElementById(
-            "vol-slider",
-        ) as HTMLInputElement;
-        const volNum = document.getElementById("vol-num")!;
-        const volIcon = document.getElementById("vol-icon")!;
-
-        function icons(v: number) {
-            return v === 0 ? "🔇" : v < 30 ? "🔈" : v < 70 ? "🔉" : "🔊";
-        }
-
-        slider.addEventListener("input", () => {
-            
-            let v = parseInt(slider.value);
-            
-            volIcon.textContent = icons(v);
-
-        });
     });
 </script>
 
@@ -276,10 +258,10 @@
         <p class="status">{status} &nbsp;  &nbsp; &nbsp; support us <a href="https://cash.app/$orange3717">here!</a></p>
 
         <div class="volume-control" id="vol-app">
+        <p id="vol-icon">Volume: {volume}</p>
             <input type="range" id="vol-slider" min="0" max="100" step="5"
                 bind:value={volume}
             />
-            <span id="vol-icon">🔉</span>
         </div>
 
         <div class="bot-settings">
