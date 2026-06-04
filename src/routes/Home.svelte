@@ -21,10 +21,7 @@
     const confidenceColor = ["#ff4d4d", "#ff944d", "#ffe44d", "#b3ff66", "#66ff66"];
     //                          0 -Terrible, 1 - Bad, 2 - Okay, 3 - Good, 4 - Great
     const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(
-        "Type what you want in the prompt box!",
-    );
-    synth.speak(utterance);
+
 
     async function loadModels() {
         try {
@@ -84,7 +81,6 @@
             const confidence = data.confidence;
             const confidence_score = Math.min(Math.floor((data.confidence ?? 0) * 5), 4);
             messages = [...messages, { role: "TariqGPT", content: reply, confidence_score }];
-            await speak(reply);
         } catch (err) {
             messages = [
                 ...messages,
@@ -125,7 +121,6 @@
             const confidence = data.confidence;
             const confidence_score = Math.min(Math.floor((data.confidence ?? 0) * 5), 4);
             messages = [...messages, { role: "TariqGPT", content: reply, confidence_score }];
-            await speak(reply);
         } catch (err) {
             messages = [
                 ...messages,
@@ -258,7 +253,7 @@
         <p class="status">{status} &nbsp;  &nbsp; &nbsp; support us <a href="https://cash.app/$orange3717">here!</a></p>
 
         <div class="volume-control" id="vol-app">
-        <p id="vol-icon">Volume: {volume}</p>
+        <p id="vol-num">Volume: {volume}</p>
             <input type="range" id="vol-slider" min="0" max="100" step="5"
                 bind:value={volume}
             />

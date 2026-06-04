@@ -195,20 +195,43 @@ a {
     background: var(--bg-volume);
     position: relative;
     box-sizing: border-box;
+    padding-inline: 10px;
 }
-
 
 #vol-slider {
-    display: inline;
+    -webkit-appearance: none;
+    appearance: none;
     width: 12%;
-    flex:1;
-    accent-color: var(--accent);
-    cursor: pointer;
+    flex: 1;
+    margin-inline: 5px;
+    padding:5px 8px;
+    box-sizing: border-box;
+    align-self: center;
+
 }
+
+#vol-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--secondary-accent);
+    cursor: pointer;
+    margin-top: -6px;
+}
+
+#vol-slider::-webkit-slider-runnable-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+}
+
 
 #vol-num {
     overflow: visible;
-    display:inline;
+    display:block;
+    margin-inline: 5px;
     font-size: 12px;
     font-family: monospace;
     color: var(--text);
@@ -327,11 +350,12 @@ button:hover {
     padding: 10px;
     cursor: pointer;
     margin-left: auto;
+    animation: stretch .3 forwards;
 }
 
 .action-btn:hover {
     animation:
-        gray-to-purple-color 2s infinite,
+        gray-to-purple-color .3s infinite,
         stretch 2s forwards;
 }
 
@@ -344,6 +368,12 @@ button:hover {
 @keyframes stretch {
     0%   { transform: scale(1); }
     100% { transform: scale(1.2, 0.8); }
+}
+
+@keyframes unstretch {
+    0% { transform: scale(1.2, 0.8); }
+    100% { transform: scale(1)}
+
 }
 
 
@@ -368,6 +398,11 @@ button:disabled {
     100% { transform: scale(1.15); }
 }
 
+@keyframes shrink {
+    0% {transform: scale(1.15)}
+    100% {transform: scale(1)}
+}
+
 .model-btn {
     display: block;
     width: 100%;
@@ -380,6 +415,7 @@ button:disabled {
     border: 1px solid var(--model-btn-border);
     border-radius: 12px;
     cursor: pointer;
+    animation: shrink .5s forwards;
 }
 
 .model-btn:hover {
