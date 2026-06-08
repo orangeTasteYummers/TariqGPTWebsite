@@ -170,15 +170,25 @@
         a.download = "chat.json";
         a.click();
     }
-
+    let sideBarOpen = false;
+    function openSideBar() {
+        let btn = document.getElementById("collapse-btn");
+        sideBarOpen = !sideBarOpen;
+        if (sideBarOpen && btn != null) btn.textContent = `<i class="ti ti-layout-sidebar-left-collapse"></i>`;
+        else if (!sideBarOpen && btn != null) btn.textContent = `<i class="ti ti-layout-sidebar-right-collapse"></i>`;
+    }
     onMount(async () => {
         await loadModels();
+        
     });
+
 </script>
 
 <div class="container">
-    <div class="sidebar">
-        <h3>Models</h3>
+    <div class:sidebar={sideBarOpen}>
+    <button class="collapse-btn" on:click={() => {sideBarOpen = !sideBarOpen}}><i class="ti ti-layout-sidebar-left-collapse"></i>{#if !sideBarOpen}&nbsp;Models{/if}</button>
+    {#if sideBarOpen}
+    <h3>Models</h3>
     <a href="#/info">Curious about Tariq? click here!</a>
 	<div class="info">
 		<p>Any response from Tariq is ai generated and should be taken with a grain of salt</p>
@@ -196,7 +206,10 @@
                 {m}
             </button>
         {/each}
+    {/if}
     </div>
+
+
 
     <div class="chat-container">
         <div class="chat">
