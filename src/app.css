@@ -338,17 +338,6 @@ button:hover {
 }
 
 
-.action-btn.TariqGPT {
-    background: transparent;
-    color: var(--text-muted);
-    border: none;
-    font-size: 12px;
-    height: 12px;
-    width: auto;
-    padding: 10px;
-    cursor: pointer;
-    
-}
 
 .action-txt.TariqGPT {
     background: transparent;
@@ -371,6 +360,18 @@ button:hover {
     margin-left: auto;
 }
 
+.action-btn.TariqGPT {
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    font-size: 12px;
+    height: 12px;
+    width: auto;
+    padding: 10px;
+    cursor: pointer;
+    animation: stretch .3 forwards;
+    animation: gray-to-purple-color .3 backwards;   
+}
 .action-btn.user {
     background: transparent;
     color: var(--text-muted);
@@ -382,12 +383,13 @@ button:hover {
     cursor: pointer;
     margin-left: auto;
     animation: stretch .3 forwards;
+    animation: gray-to-purple-color .3 backwards;
 }
 
 .action-btn:hover {
     animation:
-        gray-to-purple-color .3s infinite,
-        stretch 2s forwards;
+        gray-to-purple-color 2s infinite,
+        stretch .2s forwards;
 }
 
 @keyframes pulse {
