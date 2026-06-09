@@ -1,5 +1,5 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Geologica:wght,CRSV@100..900,0&display=swap');
+@import url('https://fonts.googleapis.com/css2?&family=Nunito:wght@400;700&display=swap');
 
 
 html, body {
@@ -15,11 +15,10 @@ html, body {
 }
 
 h1, h2, h3 {
-    font-family: 'Bangers';
-    letter-spacing: 2px;
+    font-family: 'Geologica';
 }
 
-/* ── Color tokens ── */
+/*colors*/
 :root {
     --bg: #ffffff;
     --bg-sidebar: #ffffff;
@@ -77,6 +76,8 @@ a {
     color: var(--a-tag);
 }
 
+
+
 .container {
     display: flex;
     min-height: 100vh;
@@ -95,6 +96,22 @@ a {
     overflow-y: auto;
     z-index: 5;
     position: fixed;
+    transform: translateX(0);
+    transition: transform .6s cubic-bezier(0.25, 0.1, 0.25, 1);;
+}
+
+.sidebar.collapsed {
+    width: 150px;
+    min-height: 100vh;
+    max-height: 100%;
+    padding: 20px;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    color: var(--model-btn-text);
+    overflow-y: auto;
+    z-index: 5;
+    transform: translateX(-200px);
+    
 }
 
 .collapse-btn {
@@ -104,13 +121,13 @@ a {
     z-index: 6;
     border: none;
     background: none;
+    animation: shrink .2s forwards;
 }
 
 .collapse-btn:hover {
-    animation: grow .2s 1 forwards;
+    animation: grow .2s forwards;
 }
 
-/*SUPER SUPER SUPER SUPER IMPORTANT DO NOT REMOVE EVER SERIOUSLY THIS WILL BREAK IT ALL ON MOBILE PLEASE?*/
 html {
     background: var(--bg);
 }
@@ -369,7 +386,7 @@ button:hover {
     width: auto;
     padding: 10px;
     cursor: pointer;
-    animation: stretch .3 forwards;
+    animation: stretch .3 backwards;
     animation: gray-to-purple-color .3 backwards;   
 }
 .action-btn.user {
@@ -382,7 +399,7 @@ button:hover {
     padding: 10px;
     cursor: pointer;
     margin-left: auto;
-    animation: stretch .3 forwards;
+    animation: stretch .3 backwards;
     animation: gray-to-purple-color .3 backwards;
 }
 

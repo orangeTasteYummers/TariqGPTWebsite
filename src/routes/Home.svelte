@@ -185,9 +185,10 @@
 </script>
 
 <div class="container">
-    <div class:sidebar={sideBarOpen}>
     <button class="collapse-btn" on:click={() => {sideBarOpen = !sideBarOpen}}><i class="ti ti-layout-sidebar-left-collapse"></i>{#if !sideBarOpen}&nbsp;Models{/if}</button>
-    {#if sideBarOpen}
+    <div class="sidebar" class:collapsed={!sideBarOpen}>
+    
+    
     <h3>Models</h3>
     <a href="#/info">Curious about Tariq? click here!</a>
 	<div class="info">
@@ -206,7 +207,7 @@
                 {m}
             </button>
         {/each}
-    {/if}
+    
     </div>
 
 
@@ -266,7 +267,7 @@
         <p class="status">{status} &nbsp;  &nbsp; &nbsp; support us <a href="https://cash.app/$orange3717">here!</a></p>
 
         <div class="volume-control" id="vol-app">
-        <p id="vol-num">Volume: {volume}</p>
+        <p id="vol-num"><i class="ti ti-volume"></i>: {volume}</p>
             <input type="range" id="vol-slider" min="0" max="100" step="5"
                 bind:value={volume}
             />
