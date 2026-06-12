@@ -32,7 +32,7 @@ app.add_middleware(
 #setup sqlite if it doesn't exist
 conn = sql.connect("sessions.db")
 cursor = conn.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS sessions (session_id TEXT PRIMARY KEY, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL);")
+cursor.execute("CREATE TABLE IF NOT EXISTS sessions (session_id TEXT PRIMARY KEY, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL, ip TEXT NOT NULL);")
 conn.commit()
 conn.close()
 
@@ -60,7 +60,7 @@ class GenerateRequest(BaseModel):
     model_name: str = None
 
     
-def checkSession(session_id: str):
+def checkSession(session_id: str, ip: str, ua: str):
     conn = sql.connect("sessions.db")
     cursor = conn.cursor()
     cursor.execute("SELECT expires_at FROM sessions WHERE session_id = ?", (session_id,))
@@ -77,19 +77,56 @@ def checkSession(session_id: str):
         conn.commit()
         conn.close()
         return False
-    else:
+    
+    conn.close()
+    
+    conn = sql.connect("sessions.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT ip FROM sessions WHERE session_id = ?",(session_id,))
+    result = cursor.fetchone()
+    
+    if result is None:
         conn.close()
-        return True
+        return False
+    
+    session_ip = result[0]
+    
+    if session_ip is None:
+        cursor.execute("UPDATE sessions SET ip = ? WHERE session_id = ?", (ip, session_id,))
+        conn.commit()
+        conn.close()
+        return True;
+    
+    conn = sql.connect("sessions.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT user_agent FROM sessions WHERE session_id = ?",(session_id,))
+    result = cursor.fetchone()
+    
+    if result is None:
+        conn.close()
+        return False
+    
+    user_agent = result[0]
+    
+    if user_agent is None:
+        cursor.execute("UPDATE sessions SET user_agent = ? WHERE session_id = ?", (ua, session_id,))
+        conn.commit()
+        conn.close()
+        return True;
+        
+    
+    conn.close()
+    return True
 
 
 
-def createSession():
+def createSession(ip: str, ua: str):
     conn = sql.connect("sessions.db")
     cursor = conn.cursor()
     newSession_id = str(uuid.uuid4())
     created_at = int(time.time())
     expires_at = int(time.time())+MAX_AGE #3 days from time.ctime()
-    cursor.execute(f"INSERT into sessions (session_id, created_at, expires_at) values (?,?,?)", (newSession_id, created_at, expires_at))
+    cursor.execute(f"INSERT into sessions (session_id, created_at, expires_at, ip, user_agent) values (?,?,?,?,?)", (newSession_id, created_at, expires_at, ip, ua))
     conn.commit()
     conn.close()
     return newSession_id
@@ -147,9 +184,10 @@ async def ban_middleware(request: Request, call_next):
 
 @app.post("/generate")
 def generate(req: GenerateRequest, request: Request):
-    
+    ip = request.client.host
+    ua = request.headers.get("user-agent")
     session_id = request.cookies.get("tariqGPT_session")
-    if (not checkSession(session_id)):
+    if (not checkSession(session_id, ip, ua)):
         return {
             "response": "Session ID invalid, try refreshing your browser",
             "confidence": None,
@@ -196,13 +234,14 @@ def generate(req: GenerateRequest, request: Request):
 def session(req: Request, res: Response):
     
     session_id = req.cookies.get("tariqGPT_session")
-    
+    ip = req.client.host #ip and useragent are purely analytical data to see where and what and do stuff in the future accordingly.
+    ua = req.headers.get("user_agent")
     #check session
-    if checkSession(session_id):
+    if checkSession(session_id, ip, ua):
         return {"ok": True, "created": False,}
     
     
-    newSession = createSession()
+    newSession = createSession(ip)
     res.set_cookie(
         key="tariqGPT_session",
         value=newSession,

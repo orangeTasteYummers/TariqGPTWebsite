@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 *.db
+.open
 
 #env
 .env
