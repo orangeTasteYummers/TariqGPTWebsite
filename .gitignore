@@ -22,10 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+*.db
 
 #env
 .env
-.env.produciton
+.env.production
 #pt files
 #*.pt
 

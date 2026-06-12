@@ -66,6 +66,7 @@
 	try {
             const res = await fetch(`${API_URL}/generate`, {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     prompt: messages
@@ -106,6 +107,7 @@
         try {
             const res = await fetch(`${API_URL}/generate`, {
                 method: "POST",
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     prompt: messages
@@ -118,7 +120,6 @@
             });
             const data = await res.json();
             const reply = data.response;
-            const confidence = data.confidence;
             const confidence_score = Math.min(Math.floor((data.confidence ?? 0) * 5), 4);
             messages = [...messages, { role: "TariqGPT", content: reply, confidence_score }];
         } catch (err) {
@@ -177,7 +178,28 @@
         if (sideBarOpen && btn != null) btn.textContent = `<i class="ti ti-layout-sidebar-left-collapse"></i>`;
         else if (!sideBarOpen && btn != null) btn.textContent = `<i class="ti ti-layout-sidebar-right-collapse"></i>`;
     }
+
+    async function loadSession() {
+        try {
+            const res = await fetch(`${API_URL}/session`, {
+                method: "GET",
+                credentials: "include",
+            });
+            const data = await res.json();
+        
+            if (!data.ok) {
+                console.error("Session failed: ", data);
+            }
+        } catch (e) {
+            console.error("Could not get session: ", e);
+        }
+
+        
+
+        
+    }
     onMount(async () => {
+        await loadSession();
         await loadModels();
         
     });

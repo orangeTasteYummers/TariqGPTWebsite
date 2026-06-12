@@ -5,10 +5,14 @@ import json
 from natsort import natsorted
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from fastapi import FastAPI, Request, HTTPException
-import time
+from fastapi import FastAPI, Request, Response, HTTPException
 from collections import defaultdict
 from fastapi.responses import JSONResponse
+import sqlite3 as sql
+import uuid, time
+from dotenv import load_dotenv
+
+# methods: /session /generate /models
 
 #log stuff
 request_log: dict[str, list] = defaultdict(list)
@@ -22,21 +26,73 @@ app.add_middleware(
     allow_origins=["http://localhost:5173", "https://tariqgpt.duckdns.org"],
     allow_methods=["*"],
     allow_headers=["*"],
+    allow_credentials=True,
 )
+
+#setup sqlite if it doesn't exist
+conn = sql.connect("sessions.db")
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS sessions (session_id TEXT PRIMARY KEY, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL);")
+conn.commit()
+conn.close()
+
 
 INTERPRETER = os.path.join(os.path.dirname(__file__), "model_interpreter.py")
     
 BANNED_IPS_FILE = "banned_ips.txt"
 RATE_LIMIT = 3
-DAILY_LIMIT = 250
+DAILY_LIMIT = 10000
 WHITE_LIST = {"127.0.0.1", "192.168.1.215"} #, "141.156.89.100"
 EXCLUDED = {"/models"}
+
+ENV_PATH = "../../.env"
+load_dotenv(ENV_PATH)
+
+COOKIE_SECURE = os.getenv("secure") == "true"
+SAME_SITE = os.getenv("samesite", "lax")
+MAX_AGE = 259200
+
 
 class GenerateRequest(BaseModel):
     prompt: str
     max_tokens: int = 250
     temperature: float = 1.0
     model_name: str = None
+
+    
+def checkSession(session_id: str):
+    conn = sql.connect("sessions.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT expires_at FROM sessions WHERE session_id = ?", (session_id,))
+    result = cursor.fetchone()
+    
+    if result is None:
+        conn.close()
+        return False
+    
+    expires_at = result[0]
+    
+    if expires_at < int(time.time()):
+        cursor.execute("DELETE FROM sessions WHERE session_id = ?",(session_id,))
+        conn.commit()
+        conn.close()
+        return False
+    else:
+        conn.close()
+        return True
+
+
+
+def createSession():
+    conn = sql.connect("sessions.db")
+    cursor = conn.cursor()
+    newSession_id = str(uuid.uuid4())
+    created_at = int(time.time())
+    expires_at = int(time.time())+MAX_AGE #3 days from time.ctime()
+    cursor.execute(f"INSERT into sessions (session_id, created_at, expires_at) values (?,?,?)", (newSession_id, created_at, expires_at))
+    conn.commit()
+    conn.close()
+    return newSession_id
 
 
 def load_banned_ips() -> set:
@@ -51,7 +107,7 @@ def ban_ip(ip: str):
         f.write(ip + "\n")
 
 def check_rate(ip: str) -> str | None:
-    now = time.time()
+    now = int(time.time())
 
     # per-second check
     request_log[ip] = [t for t in request_log[ip] if now - t < 1.0]
@@ -90,17 +146,27 @@ async def ban_middleware(request: Request, call_next):
     return await call_next(request)
 
 @app.post("/generate")
-def generate(req: GenerateRequest):
+def generate(req: GenerateRequest, request: Request):
+    
+    session_id = request.cookies.get("tariqGPT_session")
+    if (not checkSession(session_id)):
+        return {
+            "response": "Session ID invalid, try refreshing your browser",
+            "confidence": None,
+        }
+    
     args = [
         sys.executable, INTERPRETER,
         str(req.max_tokens),
         str(req.temperature),
     ]
+    
     if req.max_tokens > 300:
         args[2] = "300"
         
     if req.model_name:
         args.append(req.model_name)
+        
     proc = subprocess.run(
         args,
         input=req.prompt.encode("utf-8"),
@@ -126,6 +192,28 @@ def generate(req: GenerateRequest):
         # fallback if model_interpreter hasn't been updated yet
         return {"response": proc.stdout.decode("utf-8").strip(), "confidence": None}
 
+@app.get("/session")
+def session(req: Request, res: Response):
+    
+    session_id = req.cookies.get("tariqGPT_session")
+    
+    #check session
+    if checkSession(session_id):
+        return {"ok": True, "created": False,}
+    
+    
+    newSession = createSession()
+    res.set_cookie(
+        key="tariqGPT_session",
+        value=newSession,
+        httponly=True,
+        secure=COOKIE_SECURE,
+        samesite=SAME_SITE,
+        max_age=MAX_AGE,
+    )
+    return {"ok": True, "created": True,}
+        
+    
 
 @app.get("/models")
 def list_models():
