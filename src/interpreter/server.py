@@ -241,7 +241,7 @@ def session(req: Request, res: Response):
         return {"ok": True, "created": False,}
     
     
-    newSession = createSession(ip)
+    newSession = createSession(ip, ua)
     res.set_cookie(
         key="tariqGPT_session",
         value=newSession,
