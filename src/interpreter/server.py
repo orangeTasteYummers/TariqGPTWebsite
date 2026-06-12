@@ -235,7 +235,7 @@ def session(req: Request, res: Response):
     
     session_id = req.cookies.get("tariqGPT_session")
     ip = req.client.host #ip and useragent are purely analytical data to see where and what and do stuff in the future accordingly.
-    ua = req.headers.get("user_agent")
+    ua = req.headers.get("user-agent")
     #check session
     if checkSession(session_id, ip, ua):
         return {"ok": True, "created": False,}
