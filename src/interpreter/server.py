@@ -248,7 +248,7 @@ def session(req: Request, res: Response):
     #check session
     if checkSession(session_id, ip, ua):
         
-        return {"ok": True, "created": False, "expiration": getExpDate(session_id),}
+        return {"ok": True, "created": False, "expires_at": getExpDate(session_id),}
     
     
     newSession = createSession(ip, ua)
@@ -260,7 +260,7 @@ def session(req: Request, res: Response):
         samesite=SAME_SITE,
         max_age=MAX_AGE,
     )
-    return {"ok": True, "created": True, "expiration": getExpDate(session_id),}
+    return {"ok": True, "created": True, "expires_at": getExpDate(session_id),}
         
     
 
