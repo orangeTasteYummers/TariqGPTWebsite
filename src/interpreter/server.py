@@ -60,9 +60,9 @@ class GenerateRequest(BaseModel):
     model_name: str = None
 
 def getExpDate(session_id: str):
-    conn = sql.connect()
+    conn = sql.connect("sessions.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT expires_at FROM sessions WHERE sessions_id = ?", (session_id,))
+    cursor.execute("SELECT expires_at FROM sessions WHERE session_id = ?", (session_id,))
     result = cursor.fetchone()
     if result is None:
         return None

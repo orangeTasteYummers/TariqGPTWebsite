@@ -22,7 +22,7 @@
     //                          0 -Terrible, 1 - Bad, 2 - Okay, 3 - Good, 4 - Great
     const synth = window.speechSynthesis;
 
-    let expiration = "";
+    let expires_at = 0;
 
 
     async function loadModels() {
@@ -81,7 +81,7 @@
             });
             const data = await res.json();
             const reply = data.response;
-            const confidence = data.confidence;
+            //const confidence = data.confidence;
             const confidence_score = Math.min(Math.floor((data.confidence ?? 0) * 5), 4);
             messages = [...messages, { role: "TariqGPT", content: reply, confidence_score }];
         } catch (err) {
@@ -192,14 +192,21 @@
             if (!data.ok) {
                 console.error("Session failed: ", data);
             }
+
+            let now = Math.floor(new Date().getTime() / 1000);
+            let hoursLeft = Math.floor((data.expires_at-now) / (3600)) //Gives us 72 hours or less
+            expires_at = hoursLeft;
+            if (hoursLeft < 0) expires_at = 72;
+            
         } catch (e) {
             console.error("Could not get session: ", e);
         }
-
         
 
         
     }
+
+
     onMount(async () => {
         await loadSession();
         await loadModels();
@@ -319,6 +326,8 @@
             <button class="action-btn settings-btn" on:click={loadSavedChat}
                 >Load Chat</button
             >
+            <span style="color: var(--secondary-accent);">{expires_at}h left on session</span>
+
         </div>
 
         <div class="input">
