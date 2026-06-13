@@ -59,7 +59,16 @@ class GenerateRequest(BaseModel):
     temperature: float = 1.0
     model_name: str = None
 
-    
+def getExpDate(session_id: str):
+    conn = sql.connect()
+    cursor = conn.cursor()
+    cursor.execute("SELECT expires_at FROM sessions WHERE sessions_id = ?", (session_id,))
+    result = cursor.fetchone()
+    if result is None:
+        return None
+    else:
+        return result[0]
+
 def checkSession(session_id: str, ip: str, ua: str):
     conn = sql.connect("sessions.db")
     cursor = conn.cursor()
@@ -238,7 +247,8 @@ def session(req: Request, res: Response):
     ua = req.headers.get("user-agent")
     #check session
     if checkSession(session_id, ip, ua):
-        return {"ok": True, "created": False,}
+        
+        return {"ok": True, "created": False, "expiration": getExpDate(session_id),}
     
     
     newSession = createSession(ip, ua)
@@ -250,7 +260,7 @@ def session(req: Request, res: Response):
         samesite=SAME_SITE,
         max_age=MAX_AGE,
     )
-    return {"ok": True, "created": True,}
+    return {"ok": True, "created": True, "expiration": getExpDate(session_id),}
         
     
 
