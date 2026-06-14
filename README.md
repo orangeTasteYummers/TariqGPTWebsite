@@ -4,7 +4,7 @@ run tariq on localhost
 talk to all publicly of tariqgpts models (currently all are public except the tariq's that spit garbled messes)
 save chats
 and most importantly goof off with the **from scratch** AI TariqGPT who was created with a labor of love from me and a friend (@poopypants on github)
-
+PS: There's a website up for tariq already if you don't want to locally run him, access him my clicking [here](https://tariqgpt.duckdns.org)
 # Prerequisites:
 1. npm package manager or other package manager that node supports
 2. python 3.12
