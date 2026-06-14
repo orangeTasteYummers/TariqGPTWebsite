@@ -6,7 +6,7 @@
         `<span class="fun-fact">Tariq has only been trained on a single machine!</span>`,
         `<span class="fun-fact">Tariq was started by only <i>2 people!</i></span>`,
         `<span class="fun-fact">Tariq is less than 10M parameters!</span>`,
-        
+        `<span class="fun-fact">Tariq has never eaten a hotdog</span>`,
     ];
     function getNewFact() {
         var newFact = Math.floor(Math.random()*funFacts.length)
