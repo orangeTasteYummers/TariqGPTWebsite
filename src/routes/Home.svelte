@@ -297,14 +297,15 @@
 
         <p class="status">{status} &nbsp;  &nbsp; &nbsp; support us <a href="https://cash.app/$orange3717">here!</a></p>
 
-        <div class="volume-control" id="vol-app">
-        <p id="vol-num"><i class="ti ti-volume"></i>: {volume}</p>
-            <input type="range" id="vol-slider" min="0" max="100" step="5"
-                bind:value={volume}
-            />
-        </div>
+        
 
         <div class="bot-settings">
+            <div class="volume-control" id="vol-app">
+            <p id="vol-num"><i class="ti ti-volume"></i>: {volume}</p>
+            <input type="range" id="vol-slider" min="0" max="100" step="1"
+                bind:value={volume}
+                />
+            </div>
             <input
                 class="settings-input"
                 type="number"
