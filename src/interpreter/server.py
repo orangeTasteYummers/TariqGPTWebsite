@@ -32,7 +32,7 @@ app.add_middleware(
 #setup sqlite if it doesn't exist
 conn = sql.connect("sessions.db")
 cursor = conn.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS sessions (session_id TEXT PRIMARY KEY, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL, ip TEXT NOT NULL);")
+cursor.execute("CREATE TABLE IF NOT EXISTS sessions (session_id TEXT PRIMARY KEY, created_at INTEGER NOT NULL, expires_at INTEGER NOT NULL, ip TEXT, user_agent TEXT);")
 conn.commit()
 conn.close()
 
