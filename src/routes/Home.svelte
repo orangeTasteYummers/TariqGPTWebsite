@@ -174,11 +174,19 @@
         a.click();
     }
     let sideBarOpen = false;
+    let botSettingsOpen = false;
+
     function openSideBar() {
         let btn = document.getElementById("collapse-btn");
         sideBarOpen = !sideBarOpen;
         if (sideBarOpen && btn != null) btn.textContent = `<i class="ti ti-layout-sidebar-left-collapse"></i>`;
         else if (!sideBarOpen && btn != null) btn.textContent = `<i class="ti ti-layout-sidebar-right-collapse"></i>`;
+    }
+
+    function openBotSettings() {
+        //let btn = document.getElementById("bot-settings-btn");
+        botSettingsOpen = !botSettingsOpen;
+        
     }
 
     async function loadSession() {
@@ -216,7 +224,7 @@
 </script>
 
 <div class="container">
-    <button class="collapse-btn" on:click={() => {sideBarOpen = !sideBarOpen}}><i class="ti ti-layout-sidebar-left-collapse"></i>{#if !sideBarOpen}&nbsp;Models{/if}</button>
+    <button id="collapse-btn" on:click={() => {sideBarOpen = !sideBarOpen}}><i class="ti ti-layout-sidebar-left-collapse"></i>{#if !sideBarOpen}&nbsp;Models{/if}</button>
     <div class="sidebar" class:collapsed={!sideBarOpen}>
     
     
@@ -294,19 +302,24 @@
                 </div>
             {/each}
         </div>
+        <div class="quick-info">
+            <span class="status">{status} &nbsp;  &nbsp; &nbsp; support us <a href="https://cash.app/$orange3717">here!</a> </span>
+            <span style="color: var(--secondary-accent); margin-inline:10px;">{expires_at}h left on session</span>
+            <button id="bot-settings-btn" on:click={openBotSettings}><i class="ti ti-adjustments-alt"></i>&nbsp;Settings</button>
 
-        <p class="status">{status} &nbsp;  &nbsp; &nbsp; support us <a href="https://cash.app/$orange3717">here!</a></p>
+
+        </div>
 
         
 
-        <div class="bot-settings">
-            <div class="volume-control" id="vol-app">
-            <p id="vol-num"><i class="ti ti-volume"></i>: {volume}</p>
+        <div class="bot-settings" class:hidden={!botSettingsOpen}>
+            <p id="vol-num"><i class="ti ti-volume"></i></p>
+
             <input type="range" id="vol-slider" min="0" max="100" step="1"
                 bind:value={volume}
                 />
-            </div>
-            <input
+            <span >Temperature:</span>
+            <input title="Controls Tariq's instability and insecurities."
                 class="settings-input"
                 type="number"
                 placeholder="Temperature (0-2)"
@@ -315,7 +328,8 @@
                 step="0.1"
                 bind:value={temperature}
             />
-            <input
+            <span>Max Tokens:</span>
+            <input title="Controls the amount of characters/words tariq can use at the max."
                 class="settings-input"
                 type="number"
                 placeholder="Max tokens (0-300)"
@@ -327,7 +341,7 @@
             <button class="action-btn settings-btn" on:click={loadSavedChat}
                 >Load Chat</button
             >
-            <span style="color: var(--secondary-accent);">{expires_at}h left on session</span>
+
 
         </div>
 
@@ -337,6 +351,7 @@
                 {disabled}
                 placeholder="Type message to TariqGPT here..."
                 on:keydown={(e) => e.key === "Enter" && !disabled && handleSend()}
+                on:click={() => {sideBarOpen = false;}}
             />
             <button on:click={handleSend} {disabled}><i class="ti ti-send"></i></button>
             <button on:click={clearChat}><i class="ti ti-eraser"></i></button>
