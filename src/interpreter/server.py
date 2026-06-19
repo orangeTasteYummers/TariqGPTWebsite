@@ -260,7 +260,7 @@ def session(req: Request, res: Response):
         samesite=SAME_SITE,
         max_age=MAX_AGE,
     )
-    return {"ok": True, "created": True, "expires_at": getExpDate(session_id),}
+    return {"ok": True, "created": True, "expires_at": getExpDate(newSession),}
         
     
 
