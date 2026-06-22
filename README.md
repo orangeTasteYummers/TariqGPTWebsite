@@ -10,6 +10,8 @@ PS: There's a website up for tariq already if you don't want to locally run him,
 2. python 3.12
 3. a browser of your choice that can access local host
 
+Quick note for windows setup: if you use a different python version other than python 3.12, just replace `-3.12` with `-your.pyversion`
+
 # Steps for Windows
 1. Go to root directory and run `npm install`
 2. If any errors are present, run `npm audit fix`
