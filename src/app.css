@@ -1,22 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Geologica:wght,CRSV@100..900,0&display=swap');
-@import url('https://fonts.googleapis.com/css2?&family=Nunito:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Geologica:wght,CRSV@100..900,0&display=swap");
+@import url("https://fonts.googleapis.com/css2?&family=Nunito:wght@400;700&display=swap");
 
-
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     overflow-y: hidden;
 }
 
-
-
 * {
-    font-family: 'Nunito', cursive;
+    font-family: "Nunito", cursive;
     color: var(--text);
 }
 
-h1, h2, h3 {
-    font-family: 'Geologica';
+h1,
+h2,
+h3 {
+    font-family: "Geologica";
 }
 
 /*colors*/
@@ -41,7 +41,7 @@ h1, h2, h3 {
     --accent: #464646;
     --secondary-accent: #8c8c8c;
 
-    --purple: #5134B7;
+    --purple: #5134b7;
     --purple-anim: #a73ad9;
     --a-tag: #2563aa;
 }
@@ -67,7 +67,7 @@ h1, h2, h3 {
         --status-color: #30d158;
         --accent: #2d2d2d;
         --secondary-accent: #5c5c5c;
-        --purple: #5134B7;
+        --purple: #5134b7;
         --purple-anim: #da8fff;
         --a-tag: #33cfeb;
     }
@@ -76,8 +76,6 @@ h1, h2, h3 {
 a {
     color: var(--a-tag);
 }
-
-
 
 .container {
     display: flex;
@@ -98,14 +96,12 @@ a {
     z-index: 5;
     position: fixed;
     transform: translateX(0);
-    transition: transform .6s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .sidebar.collapsed {
-
     z-index: 5;
     transform: translateX(-200px);
-    
 }
 
 #collapse-btn {
@@ -116,12 +112,11 @@ a {
     border: none;
     background: var(--bg);
     color: var(--text);
-    animation: shrink .2s forwards;
+    animation: shrink 0.2s forwards;
 }
 
-
 #collapse-btn:hover {
-    animation: grow .2s forwards;
+    animation: grow 0.2s forwards;
 }
 
 .quick-info {
@@ -140,13 +135,12 @@ a {
 }
 
 #bot-settings-btn:hover {
-    animation: grow .2s forwards;
+    animation: grow 0.2s forwards;
 }
 
 html {
     background: var(--bg);
 }
-
 
 .chat-container {
     flex: 1;
@@ -156,7 +150,7 @@ html {
 }
 
 .chat {
-    height:100%;
+    height: 100%;
     min-height: 0;
     overflow-y: auto;
     padding: 12px;
@@ -164,9 +158,7 @@ html {
     flex-direction: column;
     gap: 6px;
     background: var(--bg-chat);
-
 }
-
 
 ::-webkit-scrollbar-corner {
     border-radius: 3px;
@@ -175,7 +167,7 @@ html {
 
 ::-webkit-scrollbar-thumb {
     background: var(--secondary-accent);
-    width:2px;
+    width: 2px;
     border-radius: 10px;
 }
 
@@ -184,9 +176,8 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
+    width: 4px;
 }
-
 
 .info-page {
     flex-direction: column;
@@ -196,7 +187,6 @@ html {
         margin-block: 3px;
     }
 }
-
 
 .settings-input {
     width: 80px;
@@ -232,16 +222,15 @@ html {
     z-index: 6;
     opacity: 100%;
     transform: translateY(0);
-    transition: opacity 0.2s, transform 0.2s;
+    transition:
+        opacity 0.2s,
+        transform 0.2s;
 }
 
 .bot-settings.hidden {
-
     opacity: 0%;
     transform: translateY(-250px);
 }
-
-
 
 .status {
     margin: 8px 12px;
@@ -257,12 +246,10 @@ html {
 
 .bubble-row.user {
     justify-content: flex-end;
-    
 }
 
 .bubble-row.TariqGPT {
     justify-content: flex-start;
-    
 }
 
 .bubble {
@@ -278,7 +265,7 @@ html {
     background: var(--accent);
     color: #fff;
     border-bottom-right-radius: 4px;
-    max-width:45%;
+    max-width: 45%;
     margin-left: auto;
 }
 
@@ -286,7 +273,8 @@ html {
     background: var(--purple);
     color: #fff;
     border-bottom-left-radius: 4px;
-    max-width:45%;
+    max-width: 45%;
+    font-family: papyrus;
 }
 
 .volume-control {
@@ -298,8 +286,8 @@ html {
     box-sizing: border-box;
     padding-inline: 5px;
     width: 40%;
-    height:auto;
-    display:flex;
+    height: auto;
+    display: flex;
 }
 
 #vol-slider {
@@ -308,10 +296,9 @@ html {
     width: 100%;
     flex: 1;
     margin-inline: 5px;
-    padding:5px 8px;
+    padding: 5px 8px;
     box-sizing: border-box;
     align-self: center;
-
 }
 
 #vol-slider::-webkit-slider-thumb {
@@ -331,16 +318,15 @@ html {
     border-radius: 2px;
 }
 
-
 #vol-num {
     overflow: visible;
-    display:block;
+    display: block;
     margin-inline: 2.5px;
     font-size: 12px;
     font-family: monospace;
     color: var(--text);
     font-weight: 500;
-    width:fit-content;
+    width: fit-content;
 }
 
 .input {
@@ -386,7 +372,6 @@ button {
 
 button:hover {
     background: var(--secondary-accent);
-    
 }
 
 .action-btn {
@@ -398,20 +383,17 @@ button:hover {
     width: auto;
     padding: 10px;
     cursor: pointer;
-    
 }
 
 .action-txt {
-  background: transparent;
-  color: var(--text-muted);
-  border: none;
-  font-size: 8px;
-  height:8px;
-  width: auto;
-  padding: 5px;
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    font-size: 8px;
+    height: 8px;
+    width: auto;
+    padding: 5px;
 }
-
-
 
 .action-txt.TariqGPT {
     background: transparent;
@@ -443,8 +425,8 @@ button:hover {
     width: auto;
     padding: 10px;
     cursor: pointer;
-    animation: stretch .3 backwards;
-    animation: gray-to-purple-color .3 backwards;   
+    animation: stretch 0.3 backwards;
+    animation: gray-to-purple-color 0.3 backwards;
 }
 .action-btn.user {
     background: transparent;
@@ -456,58 +438,90 @@ button:hover {
     padding: 10px;
     cursor: pointer;
     margin-left: auto;
-    animation: stretch .3 backwards;
-    animation: gray-to-purple-color .3 backwards;
+    animation: stretch 0.3 backwards;
+    animation: gray-to-purple-color 0.3 backwards;
 }
 
 .action-btn:hover {
     animation:
         gray-to-purple-color 2s infinite,
-        stretch .2s forwards;
+        stretch 0.2s forwards;
 }
 
 @keyframes pulse {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.1); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 @keyframes stretch {
-    0%   { transform: scale(1); }
-    100% { transform: scale(1.2, 0.8); }
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.2, 0.8);
+    }
 }
 
 @keyframes unstretch {
-    0% { transform: scale(1.2, 0.8); }
-    100% { transform: scale(1)}
-
+    0% {
+        transform: scale(1.2, 0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
-
 
 button:disabled {
     background: var(--btn-disabled-bg);
 }
 
 @keyframes white-to-purple {
-    0%   { background-color: var(--model-btn-bg); }
-    50%  { background-color: var(--purple-anim); }
-    100% { background-color: var(--model-btn-bg); }
+    0% {
+        background-color: var(--model-btn-bg);
+    }
+    50% {
+        background-color: var(--purple-anim);
+    }
+    100% {
+        background-color: var(--model-btn-bg);
+    }
 }
 
 @keyframes gray-to-purple-color {
-    0%   { color: var(--text-muted); }
-    50%  { color: var(--purple-anim); }
-    100% { color: var(--text-muted); }
+    0% {
+        color: var(--text-muted);
+    }
+    50% {
+        color: var(--purple-anim);
+    }
+    100% {
+        color: var(--text-muted);
+    }
 }
 
 @keyframes grow {
-    0%   { transform: scale(1); }
-    100% { transform: scale(1.15); }
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.15);
+    }
 }
 
 @keyframes shrink {
-    0% {transform: scale(1.15)}
-    100% {transform: scale(1)}
+    0% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .model-btn {
@@ -522,13 +536,13 @@ button:disabled {
     border: 1px solid var(--model-btn-border);
     border-radius: 12px;
     cursor: pointer;
-    animation: shrink .5s forwards;
+    animation: shrink 0.5s forwards;
 }
 
 .model-btn:hover {
     animation:
         white-to-purple 2s infinite,
-        grow .2s forwards;
+        grow 0.2s forwards;
     cursor: pointer;
 }
 
@@ -543,9 +557,6 @@ button:disabled {
     font-size: 10px;
 }
 
-
 .fun-fact {
     color: var(--status-color);
-
 }
-
