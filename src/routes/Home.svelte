@@ -1,9 +1,11 @@
 <script lang="ts">
     // svolumtuff
     import { onMount } from "svelte";
+    import { tick } from "svelte";
     import type { Message } from "../lib/types";
     import { API_URL } from "../lib/config";
     import tariqPfp from "../assets/tariqgpt-logo.svg";
+
     let input = "";
     let disabled = false;
     let messages: Message[] = [];
@@ -66,7 +68,15 @@
         disabled = true;
 
         status = "TariqGPT is typing...";
-        if (container) container.scrollTop = container.scrollHeight;
+
+        await tick(); //wait for the dom to load the message
+        if (container)
+            container.scroll({
+                top: container.scrollHeight,
+                left: 0,
+                behavior: "smooth",
+            });
+
         try {
             const res = await fetch(`${API_URL}/generate`, {
                 method: "POST",
@@ -98,7 +108,14 @@
                 { role: "TariqGPT", content: "Error reaching the model." },
             ];
         }
-        if (container) container.scrollTop = container.scrollHeight;
+        await tick();
+        if (container)
+            container.scroll({
+                top: container.scrollHeight,
+                left: 0,
+                behavior: "smooth",
+            });
+
         status = "Waiting for prompt";
         disabled = false;
     }
@@ -143,7 +160,13 @@
                 { role: "TariqGPT", content: "Error reaching the model." },
             ];
         }
-        if (container) container.scrollTop = container.scrollHeight;
+        await tick();
+        if (container)
+            container.scroll({
+                top: container.scrollHeight,
+                left: 0,
+                behavior: "smooth",
+            });
         status = "Waiting for prompt";
         disabled = false;
     }
