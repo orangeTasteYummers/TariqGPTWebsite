@@ -17,13 +17,7 @@
     let model = "Tariq0.6";
     let models: string[] = [];
     let status = "Current Model: " + model;
-    const confidenceColor = [
-        "#ff4d4d",
-        "#ff944d",
-        "#ffe44d",
-        "#b3ff66",
-        "#66ff66",
-    ];
+    const confidenceColor = ["#ff4d4d", "#ff944d", "#ffe44d", "#b3ff66", "#66ff66"];
     //                          0 -Terrible, 1 - Bad, 2 - Okay, 3 - Good, 4 - Great
     const synth = window.speechSynthesis;
 
@@ -83,9 +77,7 @@
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    prompt: messages
-                        .map((m) => `${m.role}: ${m.content}`)
-                        .join("\n"),
+                    prompt: messages.map((m) => `${m.role}: ${m.content}`).join("\n"),
                     max_tokens: maxTokens,
                     temperature,
                     model_name: model,
@@ -94,19 +86,10 @@
             const data = await res.json();
             const reply = data.response;
             //const confidence = data.confidence;
-            const confidence_score = Math.min(
-                Math.floor((data.confidence ?? 0) * 5),
-                4,
-            );
-            messages = [
-                ...messages,
-                { role: "TariqGPT", content: reply, confidence_score },
-            ];
+            const confidence_score = Math.min(Math.floor((data.confidence ?? 0) * 5), 4);
+            messages = [...messages, { role: "TariqGPT", content: reply, confidence_score }];
         } catch (err) {
-            messages = [
-                ...messages,
-                { role: "TariqGPT", content: "Error reaching the model." },
-            ];
+            messages = [...messages, { role: "TariqGPT", content: "Error reaching the model." }];
         }
         await tick();
         if (container)
@@ -123,9 +106,7 @@
     async function regenerate(index: number) {
         disabled = true;
         let container = document.querySelector(".chat");
-        const userMsg = messages
-            .slice(0, index)
-            .findLast((m) => m.role === "user");
+        const userMsg = messages.slice(0, index).findLast((m) => m.role === "user");
         if (!userMsg) return;
         await cleanParams();
         messages = messages.filter((_, j) => j !== index);
@@ -136,9 +117,7 @@
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    prompt: messages
-                        .map((m) => `${m.role}: ${m.content}`)
-                        .join("\n"),
+                    prompt: messages.map((m) => `${m.role}: ${m.content}`).join("\n"),
                     max_tokens: maxTokens,
                     temperature,
                     model_name: model,
@@ -146,19 +125,10 @@
             });
             const data = await res.json();
             const reply = data.response;
-            const confidence_score = Math.min(
-                Math.floor((data.confidence ?? 0) * 5),
-                4,
-            );
-            messages = [
-                ...messages,
-                { role: "TariqGPT", content: reply, confidence_score },
-            ];
+            const confidence_score = Math.min(Math.floor((data.confidence ?? 0) * 5), 4);
+            messages = [...messages, { role: "TariqGPT", content: reply, confidence_score }];
         } catch (err) {
-            messages = [
-                ...messages,
-                { role: "TariqGPT", content: "Error reaching the model." },
-            ];
+            messages = [...messages, { role: "TariqGPT", content: "Error reaching the model." }];
         }
         await tick();
         if (container)
@@ -171,11 +141,7 @@
         disabled = false;
     }
     async function clearChat() {
-        if (
-            confirm(
-                "This will delete ALL chats on the current page, are you sure?",
-            )
-        ) {
+        if (confirm("This will delete ALL chats on the current page, are you sure?")) {
             messages = [];
         }
     }
@@ -216,10 +182,8 @@
     function openSideBar() {
         let btn = document.getElementById("collapse-btn");
         sideBarOpen = !sideBarOpen;
-        if (sideBarOpen && btn != null)
-            btn.textContent = `<i class="ti ti-layout-sidebar-left-collapse"></i>`;
-        else if (!sideBarOpen && btn != null)
-            btn.textContent = `<i class="ti ti-layout-sidebar-right-collapse"></i>`;
+        if (sideBarOpen && btn != null) btn.textContent = `<i class="ti ti-layout-sidebar-left-collapse"></i>`;
+        else if (!sideBarOpen && btn != null) btn.textContent = `<i class="ti ti-layout-sidebar-right-collapse"></i>`;
     }
 
     function openBotSettings() {
@@ -255,7 +219,7 @@
         //Focus to input box on keystroke
         document.addEventListener("keydown", (e) => {
             const input = document.getElementById("input-box");
-            if (input) {
+            if (input && !(document.activeElement instanceof HTMLInputElement)) {
                 input.focus();
                 input.textContent += e;
             }
@@ -274,17 +238,13 @@
         on:click={() => {
             sideBarOpen = !sideBarOpen;
         }}
-        ><i class="ti ti-layout-sidebar-left-collapse"
-        ></i>{#if !sideBarOpen}&nbsp;Models{/if}</button
+        ><i class="ti ti-layout-sidebar-left-collapse"></i>{#if !sideBarOpen}&nbsp;Models{/if}</button
     >
     <div class="sidebar" class:collapsed={!sideBarOpen}>
         <h3>Models</h3>
         <a href="#/info">Curious about Tariq? click here!</a>
         <div class="info">
-            <p style="color:red;">
-                Any response from Tariq is ai generated and should be taken with
-                a grain of salt
-            </p>
+            <p style="color:red;">Any response from Tariq is ai generated and should be taken with a grain of salt</p>
             <p style="color:red;">Always double check your information</p>
         </div>
         {#each models as m}
@@ -306,59 +266,23 @@
                 <div class="bubble-row {msg.role}">
                     <div class="bubble-wrap">
                         {#if msg.role === "TariqGPT"}
-                            <img
-                                src={tariqPfp}
-                                height="34"
-                                width="34"
-                                class="assistant-logo"
-                                alt="TariqGPT Logo"
-                            />
+                            <img src={tariqPfp} height="34" width="34" class="assistant-logo" alt="TariqGPT Logo" />
                         {/if}
 
                         <div class="bubble">{msg.content}</div>
 
                         <div class="actions">
                             {#if msg.role === "TariqGPT" && msg.confidence_score !== undefined}
-                                <span
-                                    class="action-txt {msg.role}"
-                                    style="color: {confidenceColor[
-                                        msg.confidence_score
-                                    ]}"
-                                >
-                                    Confidence: {[
-                                        "Super Confused",
-                                        "Bad",
-                                        "Mid",
-                                        "Good",
-                                        "Amazing little boy",
-                                    ][msg.confidence_score]}
+                                <span class="action-txt {msg.role}" style="color: {confidenceColor[msg.confidence_score]}">
+                                    Confidence: {["Super Confused", "Bad", "Mid", "Good", "Amazing little boy"][msg.confidence_score]}
                                 </span>
                             {/if}
 
-                            <button
-                                class="action-btn {msg.role}"
-                                on:click={() =>
-                                    navigator.clipboard.writeText(msg.content)}
-                                >Copy</button
-                            >
-                            <button
-                                class="action-btn {msg.role}"
-                                on:click={() =>
-                                    (messages = messages.filter(
-                                        (_, j) => j !== i,
-                                    ))}>Delete</button
-                            >
+                            <button class="action-btn {msg.role}" on:click={() => navigator.clipboard.writeText(msg.content)}>Copy</button>
+                            <button class="action-btn {msg.role}" on:click={() => (messages = messages.filter((_, j) => j !== i))}>Delete</button>
                             {#if msg.role === "TariqGPT"}
-                                <button
-                                    class="action-btn {msg.role}"
-                                    on:click={() => regenerate(i)}
-                                    {disabled}>Retry</button
-                                >
-                                <button
-                                    class="action-btn {msg.role}"
-                                    on:click={() => speak(msg.content)}
-                                    >Speak</button
-                                >
+                                <button class="action-btn {msg.role}" on:click={() => regenerate(i)} {disabled}>Retry</button>
+                                <button class="action-btn {msg.role}" on:click={() => speak(msg.content)}>Speak</button>
                             {/if}
                         </div>
                     </div>
@@ -370,25 +294,14 @@
                 >{status} &nbsp; &nbsp; &nbsp; support us
                 <a href="https://cash.app/$orange3717">here!</a>
             </span>
-            <span style="color: var(--secondary-accent); margin-inline:10px;"
-                >{expires_at}h left on session</span
-            >
-            <button id="bot-settings-btn" on:click={openBotSettings}
-                ><i class="ti ti-adjustments-alt"></i>&nbsp;Settings</button
-            >
+            <span style="color: var(--secondary-accent); margin-inline:10px;">{expires_at}h left on session</span>
+            <button id="bot-settings-btn" on:click={openBotSettings}><i class="ti ti-adjustments-alt"></i>&nbsp;Settings</button>
         </div>
 
         <div class="bot-settings" class:hidden={!botSettingsOpen}>
             <p id="vol-num"><i class="ti ti-volume"></i></p>
 
-            <input
-                type="range"
-                id="vol-slider"
-                min="0"
-                max="100"
-                step="1"
-                bind:value={volume}
-            />
+            <input type="range" id="vol-slider" min="0" max="100" step="1" bind:value={volume} />
             <span>Temperature:</span>
             <input
                 title="Controls Tariq's instability and insecurities."
@@ -419,17 +332,12 @@
                 bind:value={input}
                 {disabled}
                 placeholder="Type message to TariqGPT here..."
-                on:keydown={(e) =>
-                    e.key === "Enter" && !disabled && handleSend()}
+                on:keydown={(e) => e.key === "Enter" && !e.shiftKey && !disabled && handleSend()}
             />
-            <button on:click={handleSend} {disabled}
-                ><i class="ti ti-send"></i></button
-            >
+            <button on:click={handleSend} {disabled}><i class="ti ti-send"></i></button>
             <button on:click={clearChat}><i class="ti ti-eraser"></i></button>
             <button on:click={saveChat}><i class="ti ti-download"></i></button>
-            <button on:click={loadSavedChat}
-                ><i class="ti ti-upload"></i></button
-            >
+            <button on:click={loadSavedChat}><i class="ti ti-upload"></i></button>
         </div>
     </div>
 </div>
